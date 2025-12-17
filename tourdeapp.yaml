@@ -1,0 +1,16 @@
+exposedPort: 8080
+containers:
+  - name: web
+    image: registry.tourde.cloud/olympians/web
+    port: 3001
+  - name: server
+    image: registry.tourde.cloud/olympians/server
+    port: 3000
+    
+build:
+  - name: web
+    context: ./apps/frontend
+    dockerfile: ./apps/frontend/Dockerfile
+  - name: server
+    context: ./apps/backend
+    dockerfile: ./apps/backend/Dockerfile
