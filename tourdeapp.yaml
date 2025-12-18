@@ -1,4 +1,5 @@
-exposedPort: 8080
+exposedPort: 80
+
 containers:
   - name: web
     image: registry.tourde.cloud/olympians/web
