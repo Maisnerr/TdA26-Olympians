@@ -10,8 +10,8 @@ containers:
     
 build:
   - name: web
-    context: ./apps/frontend
-    dockerfile: ./apps/frontend/Dockerfile
+    context: ./apps/web
+    dockerfile: ./apps/web/Dockerfile
   - name: server
-    context: ./apps/backend
-    dockerfile: ./apps/backend/Dockerfile
+    context: ./apps/server
+    dockerfile: ./apps/server/Dockerfile
