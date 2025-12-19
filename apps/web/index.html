@@ -1,13 +1,29 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>web</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello TdA</title>
+    <style>
+        body{
+            background-color: aqua;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello TdA</h1>
+    <p>Vítejte na soutěžní stránce.</p>
+
+<script>
+    async function fetchData() {
+        try {
+            const response = await fetch('http://localhost:3000');
+            const data = await response.json();
+            console.log('Data from backend:', data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+</script>
+</body>
 </html>
