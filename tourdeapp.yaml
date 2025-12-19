@@ -1,4 +1,4 @@
-exposedPort: 8080
+exposedPort: 80
 containers:
   - name: web
     image: registry.tourde.cloud/olympians/web
@@ -8,7 +8,7 @@ containers:
     port: 3000
   - name: caddy
     image: registry.tourde.cloud/olympians/caddy
-    port: 8080
+    port: 80
 build:
   - name: web
     context: ./apps/web
