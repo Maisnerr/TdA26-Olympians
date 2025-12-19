@@ -1,23 +1,10 @@
-FROM node:20-alpine
-
-RUN apk add --no-cache bash netcat-openbsd
+FROM python:3.11
 
 WORKDIR /app
-
-COPY package.json ./
-
-RUN npm install
-
 COPY . .
 
-COPY start.sh /app/start.sh
-RUN chmod +x /app/start.sh
-
-RUN npm run build
-
-ENV DATABASE_URL=mysql://root:password@mysql:3306/tda_app
-ENV PORT=3000
+RUN pip install -r requirements.txt
 
 EXPOSE 3000
 
-CMD ["/app/start.sh"]
+CMD ["python", "app.py"]
