@@ -7,7 +7,14 @@ containers:
   - name: server
     image: registry.tourde.cloud/olympians/server
     port: 3000
-    
+    env:
+      DATABASE_URL: postgres://root:heslo123@localhost:5432/thinkacademy
+  - name: postgres
+    image: postgres
+    env:
+      DATABASE: thinkacademy
+      ROOT_PASSWORD: heslo123
+    port: 5432
 build:
   - name: web
     context: ./apps/web
