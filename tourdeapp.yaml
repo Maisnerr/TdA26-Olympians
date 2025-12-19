@@ -1,26 +1,24 @@
+# $schema: https://portalbush.tourde.cloud/static/schema.json
 exposedPort: 80
 containers:
   - name: web
     image: registry.tourde.cloud/<slug>/web
     port: 3001
-    tag: 13f468d
   - name: server
     image: registry.tourde.cloud/<slug>/server
-    port: 3000
+    port: 3001
     env:
-      DATABASE_URL: ••••••••
-    tag: 13f468d
+      DATABASE_URL: mysql://root:password@localhost:3306/tda_app
   - name: mysql
     image: mysql
-    tag: '8.0'
+    tag: "8.0"
     env:
-      MYSQL_DATABASE: ••••••••
-      MYSQL_ROOT_PASSWORD: ••••••••
+      MYSQL_DATABASE: tda_app
+      MYSQL_ROOT_PASSWORD: password
     port: 3306
   - name: caddy
     image: registry.tourde.cloud/<slug>/caddy
     port: 80
-    tag: 13f468d
 build:
   - name: web
     context: ./apps/web
