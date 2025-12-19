@@ -1,5 +1,5 @@
 FROM caddy:2-alpine
 
-COPY ./frontend/ /usr/share/caddy
+COPY ./web/ /usr/share/caddy
 
 EXPOSE 3001
