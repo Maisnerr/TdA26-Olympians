@@ -1,20 +1,26 @@
 exposedPort: 80
-
 containers:
   - name: web
-    image: registry.tourde.cloud/olympians/web
+    image: registry.tourde.cloud/<slug>/web
     port: 3001
+    tag: 13f468d
   - name: server
-    image: registry.tourde.cloud/olympians/server
+    image: registry.tourde.cloud/<slug>/server
     port: 3000
     env:
-      DATABASE_URL: postgres://root:heslo123@localhost:5432/thinkacademy
-  - name: postgres
-    image: postgres
+      DATABASE_URL: ••••••••
+    tag: 13f468d
+  - name: mysql
+    image: mysql
+    tag: '8.0'
     env:
-      DATABASE: thinkacademy
-      ROOT_PASSWORD: heslo123
-    port: 5432
+      MYSQL_DATABASE: ••••••••
+      MYSQL_ROOT_PASSWORD: ••••••••
+    port: 3306
+  - name: caddy
+    image: registry.tourde.cloud/<slug>/caddy
+    port: 80
+    tag: 13f468d
 build:
   - name: web
     context: ./apps/web
@@ -22,3 +28,6 @@ build:
   - name: server
     context: ./apps/server
     dockerfile: ./apps/server/Dockerfile
+  - name: caddy
+    context: ./apps/caddy
+    dockerfile: ./apps/caddy/Dockerfile
