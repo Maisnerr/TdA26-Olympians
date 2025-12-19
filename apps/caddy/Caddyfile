@@ -1,4 +1,11 @@
-http://:80 {
-    reverse_proxy /api/* 127.0.0.1:3000
-    reverse_proxy * 127.0.0.1:3001
+:80{
+    handle{
+        reverse_proxy web:3001
+    }
+    handle /api*{
+        reverse_proxy server:3000
+    }
+    log {
+        output file /var/log/caddy/access.log
+    }
 }
