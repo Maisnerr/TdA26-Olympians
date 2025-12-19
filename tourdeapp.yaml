@@ -16,6 +16,6 @@ build:
   - name: server
     context: ./apps/server
     dockerfile: ./apps/server/Dockerfile
-    - name: nginx
-    context: ./apps/nginx
-    dockerfile: ./apps/nginx/Dockerfile
+  - name: caddy
+    context: ./apps/caddy
+    dockerfile: ./apps/caddy/Dockerfile
