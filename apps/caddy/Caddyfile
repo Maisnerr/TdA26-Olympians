@@ -1,8 +1,8 @@
 :80 {
-    handle{
+    handle {
         reverse_proxy web:3001
     }
-    handle /api*{
+    handle /api * {
         reverse_proxy server:3000
     }
     log {
