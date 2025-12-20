@@ -6,6 +6,14 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = "Content-Type"
 
+
+
+@app.route("/test", methods=["GET"])
+def test_endpoint():
+    return jsonify({"message": "This is a test endpoint /test"}), 200
+
+
+
 @app.route("/", methods=["GET"])
 def root():
     return jsonify({"organisation": "Student Cyber Games"}), 200
@@ -18,4 +26,4 @@ def get_courses():
 ## ...
 
 if __name__ == '__main__':
-    app.run(debug=True, host="127.0.0.1", port=3001)
+    app.run(debug=True, port=3001)
