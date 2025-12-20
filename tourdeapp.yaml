@@ -21,3 +21,4 @@ build:
   - name: caddy
     context: ./apps/caddy
     dockerfile: ./apps/caddy/Dockerfile
+
