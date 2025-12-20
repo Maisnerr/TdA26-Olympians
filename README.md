@@ -1,14 +1,14 @@
-# Tour de App - Vanilla TypeScript + Express Boilerplate
+# Tour de App - Nuxt + Express Boilerplate
 
 > **Note:** Czech version is available below / Česká verze je k dispozici níže
 
-A template for developing applications for the Tour de App competition with a frontend in Vanilla TypeScript and a backend in [Express](https://expressjs.com/).
+A template for developing applications for the Tour de App competition with a frontend in [Nuxt](https://nuxt.com/) and a backend in [Express](https://expressjs.com/).
 
 ## Initial Setup
 
 In the frontend and backend directories, there are `.env.example` files that need to be renamed to `.env` and the values adjusted as needed.
 
-For production development, you need to set `VITE_API_URL` to the API server URL in the `tourdeapp.yaml` file to the URL you find on the main page of your project on [tourde.cloud](https://tourde.cloud/).
+For production development, you need to set `NEXT_PUBLIC_API_URL` to the API server URL in the `tourdeapp.yaml` file to the URL you find on the main page of your project on [tourde.cloud](https://tourde.cloud/).
 
 > [!WARNING]
 > If you want to change the database password, you need to change it in the `tourdeapp.yaml` file, `apps/server/.env`, and for local development in the `apps/server/package.json` file.
@@ -67,17 +67,17 @@ How to submit your application can be found in our [How to deploy an app to Tour
 
 ---
 
-# Tour de App - Vanilla TypeScript + Express Boilerplate
+# Tour de App - Nuxt + Express Boilerplate
 
 **Česká verze / Czech Version**
 
-Šablona pro vývoj aplikace v soutěži Tour de App společně s frontendovou částí ve Vanilla TypeScript a backendovou částí v [Express](https://expressjs.com/).
+Šablona pro vývoj aplikace v soutěži Tour de App společně s frontendovou částí ve frameworku [Nuxt](https://nuxt.com/) a backendovou částí v [Express](https://expressjs.com/).
 
 ## Prvotní nastavení
 
 V složkách pro frontend a backend jsou `.env.example` soubory, které je potřeba přejmenovat na `.env` a upravit hodnoty dle potřeby.
 
-Pro produkční vývoj je potřeba nastavit `VITE_API_URL` na URL API serveru v souboru `tourdeapp.yaml` na URL, kterou najdete na hlavní stránce Vašeho projektu na [tourde.cloud](https://tourde.cloud/).
+Pro produkční vývoj je potřeba nastavit `NEXT_PUBLIC_API_URL` na URL API serveru v souboru `tourdeapp.yaml` na URL, kterou najdete na hlavní stránce Vašeho projektu na [tourde.cloud](https://tourde.cloud/).
 
 > [!WARNING]
 > Pokud chcete měnit heslo od databáze, je potřeba ho změnit v souboru `tourdeapp.yaml`, `apps/server/.env` a pro lokální vývoj v souboru `apps/server/package.json`.
