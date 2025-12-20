@@ -1,5 +1,3 @@
-FROM caddy:2-alpine
+FROM nginx:alpine
 
-COPY . /usr/share/caddy
-
-EXPOSE 3001
+COPY . /usr/share/nginx/html
