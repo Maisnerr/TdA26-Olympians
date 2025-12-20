@@ -6,7 +6,7 @@ containers:
     port: 3001
   - name: server
     image: registry.tourde.cloud/olympians/server
-    port: 3000
+    port: 3001
   - name: caddy
     image: registry.tourde.cloud/olympians/caddy
     port: 80
