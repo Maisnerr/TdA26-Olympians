@@ -10,6 +10,7 @@ app.config['CORS_HEADERS'] = "Content-Type"
 
 @app.route("/test", methods=["GET"])
 def test_endpoint():
+    print("Test endpoint was called")
     return jsonify({"message": "This is a test endpoint /test"}), 200
 
 
@@ -26,4 +27,4 @@ def get_courses():
 ## ...
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3001)
+    app.run(debug=True, host="127.0.0.1", port=3000)
