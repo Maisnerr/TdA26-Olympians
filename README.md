@@ -1,14 +1,14 @@
-# Tour de App - NextJS + Flask Boilerplate
+# Tour de App - Vanilla TypeScript + Express Boilerplate
 
 > **Note:** Czech version is available below / Česká verze je k dispozici níže
 
-A template for developing applications for the Tour de App competition with a frontend in [NextJS](https://nextjs.org/) and a backend in [Flask](https://flask.palletsprojects.com/).
+A template for developing applications for the Tour de App competition with a frontend in Vanilla TypeScript and a backend in [Express](https://expressjs.com/).
 
 ## Initial Setup
 
 In the frontend and backend directories, there are `.env.example` files that need to be renamed to `.env` and the values adjusted as needed.
 
-For production development, you need to set `NEXT_PUBLIC_API_URL` to the API server URL in both places in the `tourdeapp.yaml` file to the URL you find on the main page of your project on [tourde.cloud](https://tourde.cloud/).
+For production development, you need to set `VITE_API_URL` to the API server URL in the `tourdeapp.yaml` file to the URL you find on the main page of your project on [tourde.cloud](https://tourde.cloud/).
 
 > [!WARNING]
 > If you want to change the database password, you need to change it in the `tourdeapp.yaml` file, `apps/server/.env`, and for local development in the `apps/server/package.json` file.
@@ -17,8 +17,8 @@ For production development, you need to set `NEXT_PUBLIC_API_URL` to the API ser
 
 For local development, you need to run:
 - **frontend** (`apps/web`), using `npm run dev` (in the correct directory - `apps/web`), it will start at [http://localhost:3001](http://localhost:3001)
-- **backend** (`apps/server`), using `uv run python main.py` (in the correct directory - `apps/server`), it will start at [http://localhost:3000](http://localhost:3000)
-- **MySQL** database, using `./db.sh` (Linux/MacOS) or `.\db.ps1` (Windows) in the `apps/server` directory, the database will run on port 3306
+- **backend** (`apps/server`), using `npm run dev` (in the correct directory - `apps/server`), it will start at [http://localhost:3000](http://localhost:3000)
+- **MySQL** database, which is defined in `docker-compose.yaml`, using `npm run db` (in the `apps/server` directory), the database will run on port 3306
 
 > [!WARNING]
 > The database is not persistent, data will be lost after shutting down the Docker container.
@@ -67,17 +67,17 @@ How to submit your application can be found in our [How to deploy an app to Tour
 
 ---
 
-# Tour de App - NextJS + Flask Boilerplate
+# Tour de App - Vanilla TypeScript + Express Boilerplate
 
 **Česká verze / Czech Version**
 
-Šablona pro vývoj aplikace v soutěži Tour de App společně s frontendovou částí ve frameworku [NextJS](https://nextjs.org/) a backendovou částí v [Flask](https://flask.palletsprojects.com/).
+Šablona pro vývoj aplikace v soutěži Tour de App společně s frontendovou částí ve Vanilla TypeScript a backendovou částí v [Express](https://expressjs.com/).
 
 ## Prvotní nastavení
 
 V složkách pro frontend a backend jsou `.env.example` soubory, které je potřeba přejmenovat na `.env` a upravit hodnoty dle potřeby.
 
-Pro produkční vývoj je potřeba nastavit `NEXT_PUBLIC_API_URL` na URL API serveru na obou místech v souboru `tourdeapp.yaml` na URL, kterou najdete na hlavní stránce Vašeho projektu na [tourde.cloud](https://tourde.cloud/).
+Pro produkční vývoj je potřeba nastavit `VITE_API_URL` na URL API serveru v souboru `tourdeapp.yaml` na URL, kterou najdete na hlavní stránce Vašeho projektu na [tourde.cloud](https://tourde.cloud/).
 
 > [!WARNING]
 > Pokud chcete měnit heslo od databáze, je potřeba ho změnit v souboru `tourdeapp.yaml`, `apps/server/.env` a pro lokální vývoj v souboru `apps/server/package.json`.
@@ -86,8 +86,8 @@ Pro produkční vývoj je potřeba nastavit `NEXT_PUBLIC_API_URL` na URL API ser
 
 Pro lokální vývoj je potřeba pustit:
 - **frontend** (`apps/web`), pomocí `npm run dev` (ve správném adresáři - `apps/web`), pustí se na [http://localhost:3001](http://localhost:3001)
-- **backend** (`apps/server`), pomocí `uv run python main.py` (ve správném adresáři - `apps/server`), pustí se na [http://localhost:3000](http://localhost:3000)
-- **MySQL** databázi, pomocí `./db.sh` (Linux/MacOS) nebo `.\db.ps1` (Windows) v adresáři `apps/server`, databáze poběží na portu 3306
+- **backend** (`apps/server`), pomocí `npm run dev` (ve správném adresáři - `apps/server`), pustí se na [http://localhost:3000](http://localhost:3000)
+- **MySQL** databázi, která je definována v `docker-compose.yaml`, pomocí `npm run db` (v adresáři `apps/server`), databáze poběží na portu 3306
 
 > [!WARNING]
 > Databáze není perzistentní, data se z ní po vypnutí Docker kontejneru ztratí.
