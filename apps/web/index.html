@@ -14,14 +14,14 @@
     <h1>Hello TdA</h1>
     <p>Vítejte na soutěžní stránce.</p>
     <br><br><br>
-    <button onclick="fetchData()">Test API</button>
+    <button onclick="fetchData('/test')">Test API</button>
     <p id="ApiResponse">API response</p>
 
 <script>
-    async function fetchData() {
+    async function fetchData(IP) {
         const responseElement = document.getElementById('ApiResponse');
         try {
-            const response = await fetch('http://127.0.0.1:3000/test');
+            const response = await fetch(IP);
             const data = await response.json();
             responseElement.textContent = JSON.stringify(data);
         } catch (error) {
