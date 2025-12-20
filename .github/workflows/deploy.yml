@@ -1,4 +1,4 @@
-name: Build and push Web App to TdA
+name: Build and push application to Tour de Cloud
 
 on:
   push:
