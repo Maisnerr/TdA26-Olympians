@@ -1,4 +1,5 @@
 exposedPort: 80
+
 containers:
   - name: web
     image: registry.tourde.cloud/olympians/web
@@ -6,6 +7,9 @@ containers:
   - name: server
     image: registry.tourde.cloud/olympians/server
     port: 3000
+  - name: caddy
+    image: registry.tourde.cloud/olympians/caddy
+    port: 80
 
 build:
   - name: web
@@ -14,3 +18,6 @@ build:
   - name: server
     context: ./apps/server
     dockerfile: ./apps/server/Dockerfile
+  - name: caddy
+    context: ./apps/caddy
+    dockerfile: ./apps/caddy/Dockerfile
