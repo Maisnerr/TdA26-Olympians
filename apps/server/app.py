@@ -28,4 +28,4 @@ def get_courses():
 
 if __name__ == '__main__':
     print("Starting Flask server...")
-##    app.run(debug=True, host="0.0.0.0", port=3000)
+    app.run(debug=True, host="0.0.0.0", port=3000)
