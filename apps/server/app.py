@@ -6,11 +6,11 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config['CORS_HEADERS'] = "Content-Type"
 
-@app.route("/", methods=["GET"])
+@app.route("/api/", methods=["GET"])
 def root():
     return jsonify({"organisation": "Student Cyber Games"}), 200
 
-@app.route("/courses", methods=["GET"])
+@app.route("/api/courses", methods=["GET"])
 def get_courses():
     pass
     ## Do after databases
