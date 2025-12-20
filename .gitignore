@@ -1,4 +1,2 @@
-node_modules
-.turbo
-.alchemy
-.env
+__pycache__/
+apps/database/

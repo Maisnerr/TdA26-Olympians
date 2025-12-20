@@ -1,5 +1,5 @@
-# $schema: https://portalbush.tourde.cloud/static/schema.json
 exposedPort: 80
+
 containers:
   - name: web
     image: registry.tourde.cloud/olympians/web
@@ -7,18 +7,10 @@ containers:
   - name: server
     image: registry.tourde.cloud/olympians/server
     port: 3000
-    env:
-      DATABASE_URL: mysql://root:password@localhost:3306/tda_app
-  - name: mysql
-    image: mysql
-    tag: "8.0"
-    env:
-      MYSQL_DATABASE: tda_app
-      MYSQL_ROOT_PASSWORD: password
-    port: 3306
   - name: caddy
     image: registry.tourde.cloud/olympians/caddy
     port: 80
+
 build:
   - name: web
     context: ./apps/web
@@ -29,3 +21,4 @@ build:
   - name: caddy
     context: ./apps/caddy
     dockerfile: ./apps/caddy/Dockerfile
+
