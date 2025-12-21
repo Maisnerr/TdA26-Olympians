@@ -14,7 +14,7 @@ def test_endpoint():
     return jsonify({"message": "This is a test endpoint /test"}), 200
 
 
-
+@app.route("/api", methods=["GET"])
 @app.route("/api/", methods=["GET"])
 def root():
     return jsonify({"organisation": "Student Cyber Games"}), 200
