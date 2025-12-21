@@ -1,12 +1,17 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
 
+import src.db as db_module
+
 app = Flask(__name__)
-cors = CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = "Content-Type"
 
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:heslo@localhost:5431'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db_module.db.init_app(app)
 
 @app.route("/api/test", methods=["GET"])
 def test_endpoint():
@@ -24,10 +29,13 @@ def root2():
 
 @app.route("/api/courses", methods=["GET"])
 def get_courses():
-    pass
-    ## Do after databases
+    return db_module.CourseDB.get(), 200
 
-## ...
+@app.route("/api/courses", methods=["POST"])
+def post_course():
+    data = request.get_json()
+    mezi = db_module.CourseDB.post(data["title"], data.get("description"))
+    return mezi, 201
 
 if __name__ == '__main__':
     print("Starting Flask server...")
