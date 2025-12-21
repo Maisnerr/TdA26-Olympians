@@ -13,10 +13,6 @@ containers:
   - name: postgres
     image: postgres:18
     port: 5431
-    env:
-      POSTGRES_PASSWORD: heslo
-    volumes:
-      - ./apps/postgres/initdb:/docker-entrypoint-initdb.d
 
 build:
   - name: web
