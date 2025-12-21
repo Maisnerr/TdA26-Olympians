@@ -1,5 +1,10 @@
-FROM caddy:2-alpine
+FROM python:3.11
 
-COPY . /usr/share/caddy
+WORKDIR /app
+COPY . .
+
+RUN pip install -r requirements.txt
 
 EXPOSE 3001
+
+CMD ["python", "app_front.py"]
