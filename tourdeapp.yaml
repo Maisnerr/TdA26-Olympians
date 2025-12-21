@@ -10,9 +10,6 @@ containers:
   - name: caddy
     image: registry.tourde.cloud/olympians/caddy
     port: 80
-  - name: postgres
-    image: postgres:18
-    port: 5431
 
 build:
   - name: web
@@ -24,6 +21,3 @@ build:
   - name: caddy
     context: ./apps/caddy
     dockerfile: ./apps/caddy/Dockerfile
-  - name: postgres
-    context: ./apps/postgres
-    dockerfile: ./apps/postgres/Dockerfile
