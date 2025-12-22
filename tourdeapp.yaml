@@ -25,5 +25,5 @@ build:
     context: ./apps/caddy
     dockerfile: ./apps/caddy/Dockerfile
   - name: caddy
-    context: ./apps/docker
+    context: ./apps/postgres
     dockerfile: ./apps/postgres/Dockerfile
