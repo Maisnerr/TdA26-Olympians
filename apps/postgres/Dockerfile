@@ -1,5 +1,10 @@
-FROM postgres
+FROM postgres:18
+
+ENV POSTGRES_USER=user
+ENV POSTGRES_PASSWORD=heslo
 
 COPY ./initdb /docker-entrypoint-initdb.d
 
-EXPOSE 5431
+EXPOSE 3005
+
+CMD ["postgres"]
