@@ -10,7 +10,7 @@ def index():
 def test():
     return send_from_directory(app.static_folder, "login.html")
 
-@app.route("/courses")
+@app.route("/api-test")
 def courses():
     return send_from_directory(app.static_folder, "test.html")
 

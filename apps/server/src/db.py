@@ -66,7 +66,10 @@ class CourseDB():
         })
     
     def delete(course_id):
-        course = Course.query.filter_by(uuid=course_id).first()
+        try:
+            course = Course.query.filter_by(uuid=course_id).first()
+        except Exception as e:
+            raise Exception("Course not found")
         if course:
             db.session.delete(course)
             db.session.commit()

@@ -69,7 +69,11 @@
             text-decoration: none;
             color: black;
             width: 100%;
-            display: inline-block;
+            display: flex;
+            gap: 10px;
+            padding: 2px;
+            border: 2px solid;
+            border-radius: 9px;
         }
         .menu ul li a:hover{
             background-color: rgb(229, 229, 229);
@@ -151,27 +155,27 @@
     <div class="menu" style="display: none;">
         <button onclick="closeMenu()">Zavřít endpoint menu</button><br><br>
         <ul>
-            <li><a href="#GET/"><span class="method type-get">GET</span> - /</a></li>
-            <li><a href="#GET/courses"><span class="method type-get">GET</span> - /courses</a></li>
-            <li><a href="#POST/courses"><span class="method type-post">POST</span> - /courses</a></li>
-            <li><a href="#GET/courses/{courseId}"><span class="method type-get">GET</span> - /courses/{courseId} <span class="wip">WIP</span></a></li>
-            <li><a href="#PUT/courses/{courseId}"><span class="method type-put">PUT</span> - /courses/{courseId} <span class="wip">WIP</span></a></li>
-            <li><a href="#DELETE/courses/{courseId}"><span class="method type-delete">DELETE</span> - /courses/{courseId}</a></li>
-            <li><a href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> - /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
-            <li><a href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> - /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
-            <li><a href="#PUT/courses/{courseId}/materials/{materialId}"><span class="method type-put">PUT</span> - /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
-            <li><a href="#DELETE/courses/{courseId}/materials/{materialId}"><span class="method type-delete">DELETE</span> - /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
-            <li><a href="#GET/courses/{courseId}/quizzes"><span class="method type-get">GET</span> - /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
-            <li><a href="#POST/courses/{courseId}/quizzes"><span class="method type-post">POST</span> - /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
-            <li><a href="#GET/courses/{courseId}/quizzes/{quizId}"><span class="method type-get">GET</span> - /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
-            <li><a href="#PUT/courses/{courseId}/quizzes/{quizId}"><span class="method type-put">PUT</span> - /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
-            <li><a href="#DELETE/courses/{courseId}/quizzes/{quizId}"><span class="method type-delete">DELETE</span> - /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
-            <li><a href="#POST/courses/{courseId}/quizzes/{quizId}/submit"><span class="method type-post">POST</span> - /courses/{courseId}/quizzes/{quizId}/submit <span class="wip">WIP</span></a></li>
-            <li><a href="#GET/courses/{courseId}/feed"><span class="method type-get">GET</span> - /courses/{courseId}/feed <span class="wip">WIP</span></a></li>
-            <li><a href="#POST/courses/{courseId}/feed"><span class="method type-post">POST</span> - /courses/{courseId}/feed <span class="wip">WIP</span></a></li>
-            <li><a href="#PUT/courses/{courseId}/feed/{postId}"><span class="method type-put">PUT</span> - /courses/{courseId}/feed/{postId} <span class="wip">WIP</span></a></li>
-            <li><a href="#DELETE/courses/{courseId}/feed/{postId}"><span class="method type-delete">DELETE</span> - /courses/{courseId}/feed/{postId} <span class="wip">WIP</span></a></li>
-            <li><a href="#GET/courses/{courseId}/feed/stream"><span class="method type-get">GET</span> - /courses/{courseId}/feed/stream <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/"><span class="method type-get">GET</span> /</a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses"><span class="method type-get">GET</span> /courses</a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses"><span class="method type-post">POST</span> /courses</a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}"><span class="method type-get">GET</span> /courses/{courseId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}"><span class="method type-put">PUT</span> /courses/{courseId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}"><span class="method type-delete">DELETE</span> /courses/{courseId}</a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}/materials/{materialId}"><span class="method type-put">PUT</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/materials/{materialId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/quizzes"><span class="method type-get">GET</span> /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/quizzes"><span class="method type-post">POST</span> /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/quizzes/{quizId}"><span class="method type-get">GET</span> /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}/quizzes/{quizId}"><span class="method type-put">PUT</span> /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/quizzes/{quizId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/quizzes/{quizId}/submit"><span class="method type-post">POST</span> /courses/{courseId}/quizzes/{quizId}/submit <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/feed"><span class="method type-get">GET</span> /courses/{courseId}/feed <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/feed"><span class="method type-post">POST</span> /courses/{courseId}/feed <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}/feed/{postId}"><span class="method type-put">PUT</span> /courses/{courseId}/feed/{postId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/feed/{postId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/feed/{postId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/feed/stream"><span class="method type-get">GET</span> /courses/{courseId}/feed/stream <span class="wip">WIP</span></a></li>
         </ul>
     </div>
 

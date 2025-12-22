@@ -86,12 +86,14 @@ const menus = document.getElementsByClassName('menu');
     }
 
     function delete_courses_courseId(){
+        console.warn("Zacatek DELETE_COURSE");
         const uuid = document.getElementById("courseId").value;
 
         fetch("http://localhost:3000/api/courses/"+uuid, {
             method: 'DELETE'
         })
         .then(responser => {
+            console.warn("Prvni pruchod DELETE_COURSE");
             code.innerHTML = responser.status;
             checkStatusCode();
         })
@@ -103,6 +105,7 @@ const menus = document.getElementsByClassName('menu');
             }
         })
         .catch(error => {
+            console.warn("Error DELETE_COURSE");
             response.innerText = "Error: " + error.message;
             code.innerHTML = "Error";
             console.error(error);
