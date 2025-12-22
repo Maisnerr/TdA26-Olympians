@@ -9,7 +9,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = "Content-Type"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:heslo@localhost:{os.getenv("PORT", 3000)}' ## OPRAVIT NA 5432
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:heslo@localhost:{os.getenv("PORT", 5432)}' ## OPRAVIT NA 5432
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db_module.db.init_app(app)
