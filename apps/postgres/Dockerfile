@@ -4,6 +4,6 @@ ENV POSTGRES_PASSWORD=heslo
 
 COPY ./initdb /docker-entrypoint-initdb.d
 
-EXPOSE 65432
+EXPOSE 5432
 
 CMD ["postgres"]

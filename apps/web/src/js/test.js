@@ -89,7 +89,9 @@ const menus = document.getElementsByClassName('menu');
         console.warn("Zacatek DELETE_COURSE");
         const uuid = document.getElementById("courseId").value;
 
-        fetch(serverInput.value+"/api/"+uuid, {
+        console.log(serverInput.value+"/api/courses/"+uuid);
+
+        fetch(serverInput.value+"/api/courses/"+uuid, {
             method: 'DELETE'
         })
         .then(responser => {

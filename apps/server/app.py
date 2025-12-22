@@ -24,6 +24,7 @@ def root2():
 
 @app.route("/api/courses", methods=["GET"])
 def get_courses():
+    print("[i] - get_courses()")
     try:
         return db_module.CourseDB.get(), 200
     except Exception as e:
@@ -32,6 +33,7 @@ def get_courses():
 
 @app.route("/api/courses", methods=["POST"])
 def post_course():
+    print("[i] - post_course()")
     try:
         data = request.get_json()
         mezi = db_module.CourseDB.post(data["title"], data.get("description"))
@@ -51,19 +53,14 @@ def put_specific_course():
 
 @app.route("/api/courses/<course_id>", methods=["DELETE"])
 def delete_specific_course(course_id):
-    print("[X] - Pokus o DELETE_COURSE")
+    print("[i] - delete_specific_course()")
     try:
-        print("[X] - Try DELETE_COURSE")
         mezi = db_module.CourseDB.delete(course_id)
-        print("[X] - return DELETE_COURSE")
         return mezi, 204
     except Exception as e:
-        print("[X] - Nastal error")
         if str(e) == "Course not found":
-            print("[X] - Ocekavany error")
             return jsonify({"message": "The requested resource was not found."}), 404
         else:
-            print("[X] - Neocekavany error")
             print("Error deleting course:", e)
             return jsonify({"error": "Internal Server Error",
                             "function": "delete_specific_course"}), 500
