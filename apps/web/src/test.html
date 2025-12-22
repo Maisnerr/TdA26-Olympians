@@ -5,8 +5,12 @@
     <title>Hello TdA</title>
     <style>
         @font-face {
-                font-family: 'Dosis-Medium';
-                src: url(Fonts/Dosis-Medium.ttf);
+            font-family: 'Dosis-Medium';
+            src: url(Fonts/Dosis-Medium.ttf);
+        }
+        @font-face{
+            font-family: "Consolas";
+            src: url(Fonts/Consolas-Regular.ttf);
         }
         body{
             background-color: rgb(0, 255, 166);
@@ -38,6 +42,7 @@
             color: #D4D4C9;
             width: max-content;
             overflow-y: auto;
+            font-family: "Consolas";
         }
         div p{
             background-color: #1E1E1E;
@@ -47,6 +52,7 @@
             color: #D4D4C9;
             width: max-content;
             border-radius: 15px;
+            font-family: "Consolas";
         }
         .menu{
             position: fixed;
@@ -108,7 +114,7 @@
 </head>
 <body>
     <h1>Testování různých API pro kurzy</h1>
-    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="http://127.0.0.1:3000"/> <a href="/">Zpatky</a>
+    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="https://olympians-84633204347.tourde.app"/> <a href="/">Zpatky</a>
 
     <button style="position:fixed; right: 40px; bottom: 40px; font-size: 2rem;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Nahoru</button>
 
