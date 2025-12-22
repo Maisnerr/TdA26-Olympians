@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import json
+import os
 
 import src.db as db_module
 
@@ -8,7 +9,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = "Content-Type"
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:heslo@localhost:65432' ## OPRAVIT NA 5432
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:heslo@localhost:{os.getenv("PORT", 3000)}' ## OPRAVIT NA 5432
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db_module.db.init_app(app)
