@@ -1,7 +1,14 @@
 __pycache__/
-apps/web/wait/
 apps/web/__pycache__/
 apps/server/__pycache__/
 apps/server/src/__pycache__/
+apps/server/src/routes/__pycache__/
+
 apps/server/venv/
 apps/web/venv/
+
+apps/web/wait/
+
+app/server/.env
+
+startlocal.bat

@@ -40,9 +40,12 @@
             border-radius: 15px;
             overflow-x: auto;
             color: #D4D4C9;
+            min-width: 550px;
             width: max-content;
             overflow-y: auto;
             font-family: "Consolas";
+            font-size: 0.8rem;
+            height: 400px;
         }
         div p{
             background-color: #1E1E1E;
@@ -80,9 +83,11 @@
             padding: 2px;
             border: 2px solid;
             border-radius: 9px;
+            transition: 0.1s ease-in-out;
         }
         .menu ul li a:hover{
             background-color: rgb(229, 229, 229);
+            transform: scale(1.03);
         }
         .method{
             font-size: 1rem;
@@ -112,14 +117,14 @@
         }
     </style>
 </head>
-<body>
-    <h1>Testování různých API pro kurzy</h1>
-    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="https://olympians-84633204347.tourde.app"/> <a href="/">Zpatky</a>
+<body>                                                                                  <!--http://127.0.0.1:3000-->
+    <h1>Testování různých API pro kurzy</h1>                                            <!--https://olympians-84633204347.tourde.app-->
+    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="http://127.0.0.1:3000"/> <a href="/">Zpatky</a>
 
     <button style="position:fixed; right: 40px; bottom: 40px; font-size: 2rem;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Nahoru</button>
 
     <ul>
-        <li><a href="https://editor.swagger.io/" style="font-size: 1.2rem;">Swagger</a></li>
+        <li><a href="https://editor.swagger.io/" target="_blank" style="font-size: 1.2rem;">Swagger</a></li>
         <li><a href="assets/swagger.yaml">swagger.yaml file download</a></li>
     </ul>
 
@@ -149,10 +154,26 @@
         <button onclick="post_courses(this)">Test</button>
     </div>
 
+    <div id="GET/courses/{courseId}" data-endpoint="courses">
+        <h2>GET - /courses/{courseId}</h2>
+        <h3>Returns full course details, including materials, quizzes, and feed items.</h3>
+        <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/><br><br>
+        <button onclick="get_specific_course()">Test</button>
+    </div>
+
+    <div id="PUT/courses/{courseId}" data-endpoint="courses">
+        <h2>PUT - /courses/{courseId}</h2>
+        <h3>Returns full course details, including materials, quizzes, and feed items.</h3>
+        <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/>
+        <input type="text" id="getCourseId" placeholder="Name" value="New Course"/>
+        <input type="text" id="putCourseId" placeholder="Description" value="New Course Description"/><br><br>
+        <button onclick="put_specific_course(this)">Test</button>
+    </div>
+
     <div id="DELETE/courses/{courseId}" data-endpoint="courses">
         <h2>DELETE - /courses/{courseId}</h2>
-        <h3>Deletes the course, including related data</h3>
-        <input type="text" id="courseId" placeholder="UUID" value="UUID"/><br><br>
+        <h3>Deletes the course, including related data.</h3>
+        <input type="text" id="deleteCourseId" placeholder="UUID" value="UUID"/><br><br>
         <button onclick="delete_courses_courseId()">Test</button>
     </div>
 
@@ -164,8 +185,8 @@
             <li><a style="border-color: #61AFFE;" href="#GET/"><span class="method type-get">GET</span> /</a></li>
             <li><a style="border-color: #61AFFE;" href="#GET/courses"><span class="method type-get">GET</span> /courses</a></li>
             <li><a style="border-color: #49CC90;" href="#POST/courses"><span class="method type-post">POST</span> /courses</a></li>
-            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}"><span class="method type-get">GET</span> /courses/{courseId} <span class="wip">WIP</span></a></li>
-            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}"><span class="method type-put">PUT</span> /courses/{courseId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}"><span class="method type-get">GET</span> /courses/{courseId}</a></li>
+            <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}"><span class="method type-put">PUT</span> /courses/{courseId}</a></li>
             <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}"><span class="method type-delete">DELETE</span> /courses/{courseId}</a></li>
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
             <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>

@@ -85,17 +85,68 @@ const menus = document.getElementsByClassName('menu');
         });
     }
 
-    function delete_courses_courseId(){
-        console.warn("Zacatek DELETE_COURSE");
-        const uuid = document.getElementById("courseId").value;
+    function get_specific_course(){
+        const uuid = document.getElementById("getCourseId").value;
 
-        console.log(serverInput.value+"/api/courses/"+uuid);
+        fetch(serverInput.value + '/api/courses/'+uuid)
+        .then(response => {
+            code.innerHTML = "" + response.status;
+            checkStatusCode();
+            return response.json();
+        })
+        .then(data => {
+            response.innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            response.innerText = "Error: " + error.message;
+            console.log(response.status);
+            code.innerHTML = "Error";
+            console.log("Error: ", error);
+        });
+    }
+
+    function put_specific_course(button){
+        const form = button.closest("div");
+    
+        const inputs = form.querySelectorAll("input");
+
+        uuid = inputs[0].value;
+        title = inputs[1].value;
+        description = inputs[2].value;
+
+        fetch(serverInput.value + "/api/courses/"+uuid, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: title,
+                description: description
+            })
+        })
+        .then(response => {
+            code.innerHTML = "" + response.status;
+            checkStatusCode();
+            return response.json();
+        })
+        .then(data => {
+            response.innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            response.innerText = "Error: " + error.message;
+            console.log(response.status);
+            code.innerHTML = "Error";
+            console.log("Error: ", error);
+        });
+    }
+
+    function delete_courses_courseId(){
+        const uuid = document.getElementById("deleteCourseId").value;
 
         fetch(serverInput.value+"/api/courses/"+uuid, {
             method: 'DELETE'
         })
         .then(responser => {
-            console.warn("Prvni pruchod DELETE_COURSE");
             code.innerHTML = responser.status;
             checkStatusCode();
         })
@@ -107,7 +158,6 @@ const menus = document.getElementsByClassName('menu');
             }
         })
         .catch(error => {
-            console.warn("Error DELETE_COURSE");
             response.innerText = "Error: " + error.message;
             code.innerHTML = "Error";
             console.error(error);
