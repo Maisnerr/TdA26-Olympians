@@ -3,6 +3,8 @@ const code = document.getElementById('code');
 const response = document.getElementById('response');
 const menus = document.getElementsByClassName('menu');
 
+let mezi = ""
+
     function checkStatusCode(){
         switch(code.innerHTML[0]){
             case "1":
@@ -162,4 +164,63 @@ const menus = document.getElementsByClassName('menu');
             code.innerHTML = "Error";
             console.error(error);
         });
+    }
+
+    function get_materials(){ 
+        mezi = "/api/courses/" + document.getElementById("getmaterials").value;
+        fetch(serverInput.value + mezi + "/materials", {method: 'GET'})
+        .then(response => {
+            code.innerHTML = "" + response.status;
+            checkStatusCode();
+            return response.json();
+        })
+        .then(data => {
+            response.innerText = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+            response.innerText = "Error: " + error.message;
+            console.log(response.status);
+            code.innerHTML = "Error";
+            console.log("Error: ", error);
+        });
+    }
+
+    function post_materials(type, button){
+        const form = button.closest("div");
+        const endpoint = form.dataset.endpoint;
+    
+        const inputs = form.querySelectorAll("input");
+
+        if(type=="url"){
+            fetch(serverInput.value + "/api/courses/"+inputs[0].value+"/materials", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: "url",
+                    name: inputs[1].value,
+                    description: inputs[2].value,
+                    url: inputs[3].value
+                })
+            })
+            .then(response => {
+                code.innerHTML = "" + response.status;
+                checkStatusCode();
+                return response.json();
+            })
+            .then(data => {
+                response.innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                response.innerText = "Error: " + error.message;
+                console.log(response.status);
+                code.innerHTML = "Error";
+                console.log("Error: ", error);
+            });
+        }else if(type=="file"){
+            
+        }else{
+            console.error("wtf");
+        }
     }

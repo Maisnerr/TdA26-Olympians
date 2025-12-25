@@ -35,6 +35,9 @@ DELETE | /Courses/{CourseId}          """
 from src.routes.courses import courses_bp
 app.register_blueprint(courses_bp)
 
+from src.routes.materials import materials_bp
+app.register_blueprint(materials_bp)
+
 if __name__ == '__main__':
     print("Starting Flask server...")
     app.run(debug=True, host="0.0.0.0", port=3000)

@@ -28,10 +28,12 @@
         div{
             margin: 25px 3% 0 3%;
             border-top: 5px solid #008757;
-            padding-left: 20px;
+            padding-left: 40px;
         }
         div h2{
             text-decoration: underline;
+            font-size: 1.7rem;
+            margin-left: -20px !important;
         }
         div pre{
             background-color: #1E1E1E;
@@ -119,7 +121,7 @@
 </head>
 <body>                                                                                  <!--http://127.0.0.1:3000-->
     <h1>Testování různých API pro kurzy</h1>                                            <!--https://olympians-84633204347.tourde.app-->
-    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="https://olympians-84633204347.tourde.app"/> <a href="/">Zpatky</a>
+    <input class="main-input" id="server" type="text" placeholder="https://example.com" value="http://127.0.0.1:3000"/> <a href="/">Zpatky</a>
 
     <button style="position:fixed; right: 40px; bottom: 40px; font-size: 2rem;" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">Nahoru</button>
 
@@ -134,48 +136,82 @@
         <p style="margin-top: auto; overflow-y: none;">Status: <b><span id="code" style="overflow-y: none;"></span></b></p>
     </div>
 
-    <div id="GET/">
-        <h2>GET - /</h2>
-        <h3>Returns basic organization information for ronment valienvidation.</h3>
-        <button onclick="get_courses('')">Test</button>
-    </div>
+    <!-- / + COURSES -->
 
-    <div id="GET/courses">
-        <h2>GET - /courses</h2>
-        <h3>Returns all available public courses.</h3>
-        <button onclick="get_courses('courses')">Test</button>
-    </div>
+    <section id="1">
+            <div id="GET/">
+            <h2>GET - /</h2>
+            <h4>Returns basic organization information for ronment valienvidation.</h4>
+            <button onclick="get_courses('')">Test</button>
+        </div>
 
-    <div id="POST/courses" data-endpoint="courses">
-        <h2>POST - /courses</h2>
-        <h3>Instructor can create a new course.</h3>
-        <input type="text" id="title" placeholder="Course Title" value="New Course"/>
-        <input type="text" id="description" placeholder="Course Description" value="New Course Description"/><br><br>
-        <button onclick="post_courses(this)">Test</button>
-    </div>
+        <div id="GET/courses">
+            <h2>GET - /courses</h2>
+            <h4>Returns all available public courses.</h4>
+            <button onclick="get_courses('courses')">Test</button>
+        </div>
 
-    <div id="GET/courses/{courseId}" data-endpoint="courses">
-        <h2>GET - /courses/{courseId}</h2>
-        <h3>Returns full course details, including materials, quizzes, and feed items.</h3>
-        <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/><br><br>
-        <button onclick="get_specific_course()">Test</button>
-    </div>
+        <div id="POST/courses" data-endpoint="courses">
+            <h2>POST - /courses</h2>
+            <h4>Instructor can create a new course.</h4>
+            <input type="text" id="title" placeholder="Course Title" value="New Course"/>
+            <input type="text" id="description" placeholder="Course Description" value="New Course Description"/><br><br>
+            <button onclick="post_courses(this)">Test</button>
+        </div>
 
-    <div id="PUT/courses/{courseId}" data-endpoint="courses">
-        <h2>PUT - /courses/{courseId}</h2>
-        <h3>Returns full course details, including materials, quizzes, and feed items.</h3>
-        <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/>
-        <input type="text" id="getCourseId" placeholder="Name" value="New Course"/>
-        <input type="text" id="putCourseId" placeholder="Description" value="New Course Description"/><br><br>
-        <button onclick="put_specific_course(this)">Test</button>
-    </div>
+        <div id="GET/courses/{courseId}" data-endpoint="courses">
+            <h2>GET - /courses/{courseId}</h2>
+            <h4>Returns full course details, including materials, quizzes, and feed items.</h4>
+            <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/><br><br>
+            <button onclick="get_specific_course()">Test</button>
+        </div>
 
-    <div id="DELETE/courses/{courseId}" data-endpoint="courses">
-        <h2>DELETE - /courses/{courseId}</h2>
-        <h3>Deletes the course, including related data.</h3>
-        <input type="text" id="deleteCourseId" placeholder="UUID" value="UUID"/><br><br>
-        <button onclick="delete_courses_courseId()">Test</button>
-    </div>
+        <div id="PUT/courses/{courseId}" data-endpoint="courses">
+            <h2>PUT - /courses/{courseId}</h2>
+            <h4>Updates course name or description.</h4>
+            <input type="text" id="getCourseId" placeholder="UUID" value="UUID"/>
+            <input type="text" id="getCourseId" placeholder="Name" value="New Course"/>
+            <input type="text" id="putCourseId" placeholder="Description" value="New Course Description"/><br><br>
+            <button onclick="put_specific_course(this)">Test</button>
+        </div>
+
+        <div id="DELETE/courses/{courseId}" data-endpoint="courses">
+            <h2>DELETE - /courses/{courseId}</h2>
+            <h4>Deletes the course, including related data.</h4>
+            <input type="text" id="deleteCourseId" placeholder="UUID" value="UUID"/><br><br>
+            <button onclick="delete_courses_courseId()">Test</button>
+        </div>
+    </section><br><br>
+
+    <!-- MATERIALS -->
+    <h1>/materials endpoints</h1>
+    <section id="2">
+        <div id="GET/courses/{courseId}/materials" data-endpoint="courses">
+            <h2>GET - /courses/{courseId}/materials</h2>
+            <h4>Returns all learning materials associated with a course.</h4>
+            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/><br><br>
+            <button onclick="get_materials()">Test</button>
+        </div>
+
+        <div id="POST/courses/{courseId}/materials" data-endpoint="courses">
+            <h2>POST - /courses/{courseId}/materials</h2>
+            <h2>Type: url</h2>
+            <h4>Returns all learning materials associated with a course.</h4>
+            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/><br><br>
+            <input type="text" id="getmaterials" placeholder="name" value="name"/>
+            <input type="text" id="getmaterials" placeholder="description" value="description"/>
+            <input type="text" id="getmaterials" placeholder="url" value="https://orteil.dashnet.org/cookieclicker/"/><br><br>
+            <button onclick="post_materials('url', this)">Test</button>
+        </div>
+
+        <div data-endpoint="courses">
+            <h2>POST - /courses/{courseId}/materials</h2>
+            <h2>Type: file</h2>
+            <h4>Returns all learning materials associated with a course.</h4>
+            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/><br><br>
+            <button onclick="get_materials()">Test</button>
+        </div>
+    </section>
 
     <script src="js/test.js"></script>
 
@@ -188,8 +224,8 @@
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}"><span class="method type-get">GET</span> /courses/{courseId}</a></li>
             <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}"><span class="method type-put">PUT</span> /courses/{courseId}</a></li>
             <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}"><span class="method type-delete">DELETE</span> /courses/{courseId}</a></li>
-            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
-            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> /courses/{courseId}/materials <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> /courses/{courseId}/materials</a></li>
+            <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> /courses/{courseId}/materials</a></li>
             <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}/materials/{materialId}"><span class="method type-put">PUT</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
             <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/materials/{materialId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/quizzes"><span class="method type-get">GET</span> /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>

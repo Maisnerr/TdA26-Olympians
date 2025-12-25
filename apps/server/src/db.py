@@ -51,7 +51,7 @@ class CourseDB():
 
         quizzes = GetSpecificCourseSupport().quizzes_from_id(course_id)
 
-        materials = GetSpecificCourseSupport().materials_from_id(course_id)
+        materials = MaterialDB().materials_from_id(course_id)
 
         feed = GetSpecificCourseSupport().feed_from_id(course_id)
 
@@ -69,8 +69,10 @@ class CourseDB():
         course = Course.query.filter_by(uuid=course_id).first()
 
         try:
-            course.name = name
-            course.description = description
+            if(name):
+                course.name = name
+            if(description):
+                course.description = description
             db.session.commit()
         except Exception as e:
             print(str(e))
@@ -108,8 +110,7 @@ class GetSpecificCourseSupport():
 
     ## SUPPORT FUNCTION FOR:
     ## GET /courses/{CourseId}
-    @staticmethod
-    def quizzes_from_id(course_id):
+    def quizzes_from_id(self, course_id):
         quizzes_table = Quiz.query.filter_by(uuid_course=course_id).all()
         quizzes = []
         for quiz in quizzes_table:
@@ -117,15 +118,14 @@ class GetSpecificCourseSupport():
                 "uuid": quiz.uuid,
                 "title": quiz.title,
                 "attempsCount": quiz.attempts,
-                "questions": GetSpecificCourseSupport.questions_from_id(quiz.uuid)
+                "questions": GetSpecificCourseSupport().questions_from_id(quiz.uuid)
                 
             })
         return quizzes
     
     ## SUPPORT FUNCTION FOR:
     ## GET /courses/{CourseId} (quizzes_from_id)
-    @staticmethod
-    def questions_from_id(quiz_id):
+    def questions_from_id(self, quiz_id):
         questions_table = Question.query.filter_by(uuid_quiz=quiz_id).all()
         questions = []
         for question in questions_table:
@@ -147,11 +147,27 @@ class GetSpecificCourseSupport():
                 })
         return questions    
     
-## MATERIALS
+    def feed_from_id(self, course_id):
+        feeds_table = Feed.query.filter_by(uuid_course=course_id).all()
+        feeds = []
+        for feed in feeds_table:
+            feeds.append({
+                "uuid": feed.uuid,
+                "type": feed.type,
+                "message": feed.message,
+                "edited": feed.edited,
+                "createdAt": feed.createdAt,
+                "updatedAt": feed.updatedAt
+            })
+        return feeds
 
-    @staticmethod
-    def materials_from_id(course_id):
-        materials_table = Material.query.filter_by(uuid_course=course_id).all()
+## MATERIALS
+class MaterialDB():
+    def materials_from_id(self, course_id):
+        try:
+            materials_table = Material.query.filter_by(uuid_course=course_id).all()
+        except:
+            raise Exception("Error while looking for course")
         materials = []
         for material in materials_table:
             if(material.type == "url"):
@@ -161,7 +177,7 @@ class GetSpecificCourseSupport():
                     "name": material.name,
                     "description": material.description,
                     "url": material.url,
-                    "faviconUrl": GetSpecificCourseSupport.faviconUrl(material.url)
+                    "faviconUrl": MaterialDB().faviconUrl(material.url)
                 })
             else:
                 materials.append({
@@ -184,17 +200,22 @@ class GetSpecificCourseSupport():
             url = url[4:]
         return "https://www.google.com/s2/favicons?sz=64&domain_url="+url
     
-    @staticmethod
-    def feed_from_id(course_id):
-        feeds_table = Feed.query.filter_by(uuid_course=course_id).all()
-        feeds = []
-        for feed in feeds_table:
-            feeds.append({
-                "uuid": feed.uuid,
-                "type": feed.type,
-                "message": feed.message,
-                "edited": feed.edited,
-                "createdAt": feed.createdAt,
-                "updatedAt": feed.updatedAt
-            })
-        return feeds
+    def post_materials_url(self, course_id, data):
+        course_check = Course.query.filter_by(uuid = course_id).first()
+
+        if(not course_check):
+            raise Exception("Course not found")
+
+        new_material = Material(type=data["type"],
+                            name=data["name"],
+                            description=data["description"],
+                            url=data["url"],
+                            uuid_course=course_id)
+        db.session.add(new_material)
+        db.session.commit()
+
+        return {"name": new_material.name,
+                "description": new_material.description,
+                "url": new_material.url,
+                "uuidCourse": new_material.uuid_course,
+                "uuid": new_material.uuid}
