@@ -1,37 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Hello TdA</title>
-    <style>
-        body{
-            background-color: aqua;
-            text-align: center;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Think Different Academy | Home</title>
+    <link rel = "icon" href = "Assets/TDA_Logo_White.png">
+    <link rel = "stylesheet" href = "style.css">
+    <script src = "https://kit.fontawesome.com/b79a57267f.js" crossorigin = "anonymous"></script>
 </head>
 <body>
-    <h1>Hello TdA</h1>
-    <p>Vítejte na soutěžní stránce.</p>
-    <br><br><br>
-    <button onclick="fetchData('/api')">Test API</button>
-    <p id="ApiResponse">API response</p>
-    <br><br><br>
-    <a href="/login">Test</a>
-    <br><br><br>
-    <a href="/api-test">Testování API endpointů</a>
-<script>
-    async function fetchData(IP) {
-        const responseElement = document.getElementById('ApiResponse');
-        try {
-            const response = await fetch(IP);
-            const data = await response.json();
-            responseElement.textContent = JSON.stringify(data);
-        } catch (error) {
-            responseElement.textContent = "Error: "+ error.message;
-            console.log("Error: ", error);
-        }
-    }
-</script>
+    <div class = "top-bg"></div>
+
+    <div class = "page-wrapper">
+        <header class = "header">
+            <div class = "header-left">
+                <div class = "hamburger tooltip">
+                    <i class = "fa-solid fa-bars"></i>
+                    <span class = "tooltip-text">Menu</span>
+                </div>
+
+                <a href = "index.html"><img src = "Assets/TDA_Full_White.png" class = "logoimg" alt = "TDA Logo"></a>
+            </div>
+
+            <div class = "profile-icon tooltip">
+                <i class = "fa-solid fa-user"></i>
+                <span class = "tooltip-text">Profil</span>
+            </div>
+
+            <nav class = "navbar">
+                <a href = "#sect2">Kurzy</a>
+                <a href = "#">Moje kurzy</a>
+                <a href = "#">Kontakt</a>
+            </nav>
+        </header>
+
+        <main class = "page-content">
+            <section id = "hero">
+                <div class = "hero-content animate">
+                    <h1>Vítejte na <span class = "diftext">Think Different Academy</span></h1>
+                    <p>Portál zaměřený na kurzy a kvízy pro uživatele.</p>
+                    <a href = "#sect2" class = "learnmore">Zjistěte víc</a>
+                </div>
+            </section>
+
+            <section id = "sect2" class = "content animate">
+                <h2>Naše kurzy</h2>
+                <p>Test123</p>
+            </section>
+        </main>
+
+        <footer class = "footer">
+            <div class = "fcontent">
+                <a href = "index.html"><img src = "Assets/TDA_Logo_White.png" class = "footerlogo" alt = "TDA Logo"></a>
+                <a href = "#"><i class="fa-brands fa-instagram"></i>Instagram</a>
+                <a href = "#"><i class="fa-brands fa-youtube"></i>YouTube</a>
+                <a href = "#"><i class="fa-brands fa-x-twitter"></i>Twitter</a>
+            </div>
+        </footer>
+    </div>
+
+    <div class = "bottom-bg"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
