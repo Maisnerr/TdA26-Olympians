@@ -29,7 +29,7 @@ def post_materials(course_id):
                 return jsonify({"error": "Course Not Found"}), 404
             return jsonify({"error": "Internal Server Error",
                             "message": str(e),
-                            "function": "post_materials (URL)"})
+                            "function": "post_materials (URL)"}),500
 
         return jsonify(mezi), 201
     elif content_type.startswith("multipart/form-data"):

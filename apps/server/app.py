@@ -14,7 +14,7 @@ CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
 app.config['CORS_HEADERS'] = "Content-Type"
 
 ## Database Connection
-app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:heslo@localhost:{os.getenv("PORT", 5432)}' ## OPRAVIT NA 5432
+app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://postgres:heslo@localhost:{os.getenv("PORT", 5432)}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db_module.db.init_app(app)
 
@@ -37,6 +37,11 @@ app.register_blueprint(courses_bp)
 
 from src.routes.materials import materials_bp
 app.register_blueprint(materials_bp)
+
+## CUSTOM ENDPOINTS
+@app.route("/api/getstudies/<courses_id>", methods=["GET"])
+def getstudies(courses_id):
+    return db_module.CustomDB.get_studies(courses_id)
 
 if __name__ == '__main__':
     print("Starting Flask server...")

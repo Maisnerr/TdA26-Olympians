@@ -44,10 +44,11 @@ class CourseDB():
     
     ## GET /courses/{CourseId}
     def get_specific_course(course_id):
-        course = Course.query.filter_by(uuid=course_id).first()
-        quizzes, materials, feed = [], [], []
-        if(not course):
+        try:
+            course = Course.query.filter_by(uuid=course_id).first()
+        except:
             raise Exception("Course not found")
+        quizzes, materials, feed = [], [], []
 
         quizzes = GetSpecificCourseSupport().quizzes_from_id(course_id)
 
@@ -59,9 +60,10 @@ class CourseDB():
             "uuid": course.uuid,
             "name": course.name,
             "description": course.description, 
-            "materials": materials, ## IMPLEMENT
+            "materials": materials, 
             "quizzes": quizzes,
-            "feed": feed            ## IMPLEMENT
+            "feed": feed,
+            "createdAt": course.createdAt
         })
 
     ##PUT /courses/{CourseId}
@@ -219,3 +221,42 @@ class MaterialDB():
                 "url": new_material.url,
                 "uuidCourse": new_material.uuid_course,
                 "uuid": new_material.uuid}
+
+class CustomDB():
+    @staticmethod
+    def get_studies(course_id):
+        course = Course.query.filter_by(uuid=course_id).first()
+        if not course:
+            raise Exception("Course not found")
+
+        quizzes = Quiz.query.filter_by(uuid_course=course_id).all()
+        materials = Material.query.filter_by(uuid_course=course_id).all()
+
+        combined = []
+
+        for quiz in quizzes:
+            combined.append({
+                "typeof": "quiz",
+                "uuid": quiz.uuid,
+                "title": quiz.title,
+                "attempts": quiz.attempts,
+                "createdAt": quiz.createdAt
+            })
+
+        for material in materials:
+            combined.append({
+                "faviconUrl": MaterialDB().faviconUrl(material.url),
+                "type": material.type,
+                "typeof": "material",
+                "uuid": material.uuid,
+                "name": material.name,
+                "description": material.description,
+                "url": material.url if material.type == "url" else None,
+                "fileUrl": material.fileUrl if material.type != "url" else None,
+                "sizeBytes": material.sizeBytes,
+                "createdAt": material.createdAt
+            })
+
+        combined.sort(key=lambda x: x["createdAt"], reverse=True)
+
+        return jsonify(combined), 200

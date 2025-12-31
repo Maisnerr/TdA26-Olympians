@@ -14,5 +14,9 @@ def test():
 def courses():
     return send_from_directory(app.static_folder, "test.html")
 
+@app.route("/courses/<course_id>")
+def specific_course(course_id):
+    return send_from_directory(app.static_folder, "course.html")
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=3001)

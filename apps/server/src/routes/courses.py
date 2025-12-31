@@ -38,7 +38,8 @@ def get_specific_course(course_id):
         mezi = db_module.CourseDB.get_specific_course(course_id)
         return mezi, 200
     except Exception as e:
-        if(str(e) == "Course not found"):
+        print(str(e))
+        if(str(e) == "Course not found" or str(e) == "'NoneType' object has no attribute 'uuid'"):
             return jsonify({"error": "Course not found"}), 404
         return jsonify({"error":"Internal Server Error",
                         "message": str(e),

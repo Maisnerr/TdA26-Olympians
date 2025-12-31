@@ -17,6 +17,7 @@ CREATE TABLE quizzes (
     uuid_course UUID NOT NULL,
     title TEXT NOT NULL,
     attempts INT DEFAULT 0,
+    "createdAt" TIMESTAMPTZ DEFAULT now() NOT NULL,
     FOREIGN KEY (uuid_course) REFERENCES courses(uuid) ON DELETE CASCADE
 );
 
@@ -46,6 +47,7 @@ CREATE TABLE public.materials (
     "mimeType" VARCHAR(100), 
     "sizeBytes" INT,  
     url TEXT,              
+    "createdAt" TIMESTAMPTZ DEFAULT now() NOT NULL,
     uuid_course UUID NOT NULL REFERENCES public.courses(uuid) ON DELETE CASCADE
 );
 

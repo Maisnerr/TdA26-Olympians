@@ -3,6 +3,12 @@ const code = document.getElementById('code');
 const response = document.getElementById('response');
 const menus = document.getElementsByClassName('menu');
 
+const url = new URL(window.location.href);
+
+if(url.host == "127.0.0.1:3001"){
+    serverInput.value = "http://127.0.0.1:3000";
+}
+
 let mezi = ""
 
     function checkStatusCode(){

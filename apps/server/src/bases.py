@@ -18,6 +18,7 @@ class Quiz(db.Model):
     uuid_course = db.Column(UUID(as_uuid=True), db.ForeignKey('courses.uuid'), nullable=False)
     title = db.Column(db.Text, nullable=False)
     attempts = db.Column(db.Integer, default=0)
+    createdAt = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
 
     questions = db.relationship('Question', cascade="all, delete-orphan")
 
@@ -59,4 +60,5 @@ class Material(db.Model):
     # URL
     url = db.Column(db.Text)
 
+    createdAt = db.Column(db.DateTime(timezone=True), default=datetime.utcnow, nullable=False)
     uuid_course = db.Column(UUID(as_uuid=True), db.ForeignKey("courses.uuid", ondelete="CASCADE"), nullable=False)
