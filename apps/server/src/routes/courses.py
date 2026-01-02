@@ -55,7 +55,7 @@ def put_specific_course(course_id):
         data = request.get_json()
         if(not data.get("name") and not data.get("description")):
             return jsonify({"error": "Bad request"}), 400
-        db_module.CourseDB.put_specific_course(course_id, data.get("name"), data.get("description"))
+        mezi = db_module.CourseDB.put_specific_course(course_id, data.get("name"), data.get("description"))
     except Exception as e:
         print(str(e))
         if(str(e) == "Course not found"):
@@ -63,7 +63,9 @@ def put_specific_course(course_id):
         return jsonify({"error":"Internal Server Error",
                         "function": "put_specific_course"}), 500
 
-    return jsonify({"message": "Course updated"}), 200
+    return jsonify({"uuid": course_id,
+                    "name": data.get("name"),
+                    "description": data.get("description")}), 200
 
 
 @courses_bp.route("/<course_id>", methods=["DELETE"])
