@@ -18,12 +18,12 @@ def post_course():
     try:
         data = request.get_json()
 
-        if(not data["title"]):
-            return jsonify({"error": "Title is a required entry"}), 400
+        if(not data["name"]):
+            return jsonify({"error": "name is a required entry"}), 400
         elif(not data["description"]):
             return jsonify({"error": "Description is a required entry"}), 400
 
-        mezi = db_module.CourseDB.post_course(data["title"], data.get("description"))
+        mezi = db_module.CourseDB.post_course(data["name"], data.get("description"))
         return mezi, 201
     
     except Exception as e:
