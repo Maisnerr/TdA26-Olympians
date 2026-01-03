@@ -36,7 +36,7 @@ function noCourse(){
     document.getElementById("notFound").style.display = "flex";
 }
 
-function generate_study_URL(description, favicon_url, main_url, url_name){
+function generate_study_URL(description, favicon_url, main_url, url_name, date){
     let preset = `
                 <article style="order: ${n};">
                     <div class="article_type">
@@ -51,12 +51,12 @@ function generate_study_URL(description, favicon_url, main_url, url_name){
                         <img class="article_url_img" src="${favicon_url}" alt="favicon">
                         <a class="article_url_name" href="${main_url}">${url_name}</a>
                     </div>
+                    <span class="article_date">${date}</span>
                 </article>
                 `
     return preset;
 }
-//TODO
-function generate_study_FILE(){
+function generate_study_FILE(description, uuid, title, bytes, date){
     let preset = `
                 <article style="order: ${n};">
                     <div class="article_type">
@@ -65,17 +65,18 @@ function generate_study_FILE(){
                     </div>
                     <div class="article_desc">
                         <svg fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M21,2H3A1,1,0,0,0,2,3V21a1,1,0,0,0,1,1H21a1,1,0,0,0,1-1V3A1,1,0,0,0,21,2ZM4,4H20V6H4ZM20,20H4V8H20ZM6,12a1,1,0,0,1,1-1H17a1,1,0,0,1,0,2H7A1,1,0,0,1,6,12Zm0,4a1,1,0,0,1,1-1h5a1,1,0,0,1,0,2H7A1,1,0,0,1,6,16Z"></path></g></svg>
-                        <p>Obrazek Kureciho vyvaru</p>
+                        <p>${description}</p>
                     </div>
                     <div class="article_file">
                         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M23 22C23 22.5523 22.5523 23 22 23H2C1.44772 23 1 22.5523 1 22C1 21.4477 1.44772 21 2 21H22C22.5523 21 23 21.4477 23 22Z" fill="#0F0F0F"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M13.3099 18.6881C12.5581 19.3396 11.4419 19.3396 10.6901 18.6881L5.87088 14.5114C4.47179 13.2988 5.32933 11 7.18074 11L9.00001 11V3C9.00001 1.89543 9.89544 1 11 1L13 1C14.1046 1 15 1.89543 15 3L15 11H16.8193C18.6707 11 19.5282 13.2988 18.1291 14.5114L13.3099 18.6881ZM11.3451 16.6091C11.7209 16.9348 12.2791 16.9348 12.6549 16.6091L16.8193 13H14.5C13.6716 13 13 12.3284 13 11.5V3L11 3V11.5C11 12.3284 10.3284 13 9.50001 13L7.18074 13L11.3451 16.6091Z" fill="#0F0F0F"></path> </g></svg>
-                        <a class="article_url_name" href="../assets/images/c8a35fdd-f72e-44e4-bd9a-8b6391c76dce.jpg" download="assets/images/c8a35fdd-f72e-44e4-bd9a-8b6391c76dce.jpg">Vyvar</a>
+                        <a class="article_url_name" target="_blank" href="${serverip}/api/getfile/${uuid}" download="${serverip}/api/getfile/${uuid}">${title} (${bytes})</a>
                     </div>
+                    <span class="article_date">${date}</span>
                 </article>
                 `
     return preset;
 }
-function generate_study_QUIZ(title, uuid){
+function generate_study_QUIZ(title, uuid, date){
     let preset = `
                 <article style="order: ${n};">
                     <div class="article_type">
@@ -87,6 +88,7 @@ function generate_study_QUIZ(title, uuid){
                         <p>${title}</p>
                     </div>
                     <button onclick="console.log('quiz: ${uuid}')"  class="article_quiz_start">Spustit kvíz!</button>
+                    <span class="article_date">${date}</span>
                 </article>
                 `
     return preset;
@@ -120,17 +122,28 @@ async function requestStudies(){
         return res.json();
     })
     .then(data => {
+        let Bytes;
         // STUDY MATERIALS
 
         data.forEach(current_material => {
             if(current_material.typeof == "material"){
                 if(current_material.type == "url"){
-                    document.querySelector("#materials").insertAdjacentHTML("afterbegin", generate_study_URL(current_material.description, current_material.faviconUrl, current_material.url, current_material.name));
+                    document.querySelector("#materials").insertAdjacentHTML("afterbegin", generate_study_URL(current_material.description, current_material.faviconUrl, current_material.url, current_material.name, current_material.createdAt));
                 }else{
-                    console.warn("file not implemented yet!");
+                    if (current_material.sizeBytes >= 1000 * 1000) {
+                        // MB
+                        Bytes = (current_material.sizeBytes / (1000 * 1000)).toFixed(2) + " MB";
+                    } else if (current_material.sizeBytes >= 1000) {
+                        // kB
+                        Bytes = (current_material.sizeBytes / 1000).toFixed(2) + " kB";
+                    } else {
+                        // Bytes
+                        Bytes = current_material.sizeBytes + " B";
+                    }
+                    document.querySelector("#materials").insertAdjacentHTML("afterbegin", generate_study_FILE(current_material.description, current_material.uuid, current_material.name, Bytes, current_material.createdAt));
                 }
             }else if(current_material.typeof == "quiz"){
-                document.querySelector("#materials").insertAdjacentHTML("afterbegin", generate_study_QUIZ(current_material.title, current_material.uuid));
+                document.querySelector("#materials").insertAdjacentHTML("afterbegin", generate_study_QUIZ(current_material.title, current_material.uuid, current_material.createdAt));
             }
             n += 1;
         });

@@ -196,7 +196,7 @@
         <div id="POST/courses/{courseId}/materials" data-endpoint="courses">
             <h2>POST - /courses/{courseId}/materials</h2>
             <h2>Type: url</h2>
-            <h4>Returns all learning materials associated with a course.</h4>
+            <h4>Adds a new file or link material to a course. Use multipart/form-data for files and application/json for URLs.</h4>
             <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/><br><br>
             <input type="text" id="getmaterials" placeholder="name" value="name"/>
             <input type="text" id="getmaterials" placeholder="description" value="description"/>
@@ -207,9 +207,43 @@
         <div data-endpoint="courses">
             <h2>POST - /courses/{courseId}/materials</h2>
             <h2>Type: file</h2>
-            <h4>Returns all learning materials associated with a course.</h4>
-            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/><br><br>
-            <button onclick="get_materials()">Test</button>
+            <h4>Adds a new file or link material to a course. Use multipart/form-data for files and application/json for URLs.</h4>
+            <input type="text" placeholder="UUID" value="UUID"/><br><br>
+            <input type="text" placeholder="name" value="name"/>
+            <input type="text" placeholder="description" value="description"/>
+            <input type="file" placeholder="file" value="file"/><br><br>
+            <button onclick="post_materials('file', this)">Test</button>
+        </div>
+
+        <div id="PUT/courses/{courseId}/materials/{materialId}" data-endpoint="courses">
+            <h2>PUT - /courses/{courseId}/materials/{materialId}</h2>
+            <h2>Type: url</h2>
+            <h4>Update metadata or replace an uploaded file.</h4>
+            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/>
+            <input type="text" id="getmaterials" placeholder="Material UUID" value="Material UUID"/><br><br>
+            <input type="text" id="getmaterials" placeholder="name" value="name"/>
+            <input type="text" id="getmaterials" placeholder="description" value="description"/>
+            <input type="text" id="getmaterials" placeholder="url" value="https://orteil.dashnet.org/cookieclicker/"/><br><br>
+            <button onclick="put_materials('url', this)">Test</button>
+        </div>
+
+        <div data-endpoint="courses">
+            <h2>PUT - /courses/{courseId}/materials/{materialId} <span style="color: red;">TODO</span></h2>
+            <h2>Type: file</h2>
+            <h4>Update metadata or replace an uploaded file.</h4>
+            <input type="text" placeholder="UUID" value="UUID"/><br><br>
+            <input type="text" placeholder="name" value="name"/>
+            <input type="text" placeholder="description" value="description"/>
+            <input type="file" placeholder="file" value="file"/><br><br>
+            <button onclick="post_materials('file', this)">Test</button>
+        </div>
+    
+        <div id="DELETE/courses/{courseId}/materials/{materialId}" data-endpoint="courses">
+            <h2>DELETE - /courses/{courseId}/materials/{materialId}</h2>
+            <h4>Removes the material from the course.</h4>
+            <input type="text" id="getmaterials" placeholder="UUID" value="UUID"/>
+            <input type="text" id="getmaterials" placeholder="Material UUID" value="Material UUID"/><br><br>
+            <button onclick="delete_materials(this)">Test</button>
         </div>
     </section>
 
@@ -227,7 +261,7 @@
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/materials"><span class="method type-get">GET</span> /courses/{courseId}/materials</a></li>
             <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/materials"><span class="method type-post">POST</span> /courses/{courseId}/materials</a></li>
             <li><a style="border-color: #FCA130;" href="#PUT/courses/{courseId}/materials/{materialId}"><span class="method type-put">PUT</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
-            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/materials/{materialId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/materials/{materialId} <span class="wip">WIP</span></a></li>
+            <li><a style="border-color: #F93E3E;" href="#DELETE/courses/{courseId}/materials/{materialId}"><span class="method type-delete">DELETE</span> /courses/{courseId}/materials/{materialId}</a></li>
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/quizzes"><span class="method type-get">GET</span> /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
             <li><a style="border-color: #49CC90;" href="#POST/courses/{courseId}/quizzes"><span class="method type-post">POST</span> /courses/{courseId}/quizzes <span class="wip">WIP</span></a></li>
             <li><a style="border-color: #61AFFE;" href="#GET/courses/{courseId}/quizzes/{quizId}"><span class="method type-get">GET</span> /courses/{courseId}/quizzes/{quizId} <span class="wip">WIP</span></a></li>

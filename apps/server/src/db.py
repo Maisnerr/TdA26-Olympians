@@ -179,7 +179,8 @@ class MaterialDB():
                     "name": material.name,
                     "description": material.description,
                     "url": material.url,
-                    "faviconUrl": MaterialDB().faviconUrl(material.url)
+                    "faviconUrl": MaterialDB().faviconUrl(material.url),
+                    "createdAt": material.createdAt
                 })
             else:
                 materials.append({
@@ -189,9 +190,14 @@ class MaterialDB():
                     "description": material.description,
                     "fileUrl": material.url,
                     "mimeType": material.mimeType,
-                    "sizeBytes": material.sizeBytes
+                    "sizeBytes": material.sizeBytes,
+                    "createdAt": material.createdAt
                 })
-        return materials
+
+        combined = materials 
+        combined.sort(key=lambda x: x["createdAt"], reverse=True)
+        
+        return combined
 
     @staticmethod
     def faviconUrl(url):
@@ -202,16 +208,16 @@ class MaterialDB():
             url = url[4:]
         return "https://www.google.com/s2/favicons?sz=64&domain_url="+url
     
-    def post_materials_url(self, course_id, data):
+    def post_materials_url(self, course_id, name, description, url):
         course_check = Course.query.filter_by(uuid = course_id).first()
 
         if(not course_check):
             raise Exception("Course not found")
 
-        new_material = Material(type=data["type"],
-                            name=data["name"],
-                            description=data["description"],
-                            url=data["url"],
+        new_material = Material(type="url",
+                            name=name,
+                            description=description,
+                            url=url,
                             uuid_course=course_id)
         db.session.add(new_material)
         db.session.commit()
@@ -221,6 +227,68 @@ class MaterialDB():
                 "url": new_material.url,
                 "uuidCourse": new_material.uuid_course,
                 "uuid": new_material.uuid}
+    
+    def post_materials_file(self, course_id, name, description):
+        course_check = Course.query.filter_by(uuid = course_id).first()
+
+        if(not course_check):
+            raise Exception("Course not found")
+        
+        new_file = Material(type="file",
+                            name=name,
+                            description=description,
+                            uuid_course=course_id)
+        db.session.add(new_file)
+        db.session.commit()
+
+        return {"message": "ok",
+                "uuid": new_file.uuid}
+
+    def stop_post_file(self, uuid):
+        material = Material.query.filter_by(uuid=uuid).first()
+
+        db.session.delete(material)
+        db.session.commit()
+
+    def complete_post_file(self, uuid, bytes, extension, mimeType):
+        entry = Material.query.filter_by(uuid=uuid).first()
+
+        entry.sizeBytes = bytes
+        entry.fileUrl = "uploads/"+str(uuid)+extension
+        entry.mimeType = mimeType
+        
+        db.session.commit()
+
+    def put_materials_url(self, course_id, material_id, name, description, url):
+        material = Material.query.filter_by(uuid=material_id, uuid_course=course_id).first()
+
+        if(material.type != "url"):
+            return jsonify({"error": "Material type mismatch"}), 400
+
+        if(name):
+            material.name = name
+        if(description):
+            material.description = description
+        if(url):
+            material.url = url
+
+        db.session.commit()
+        
+        return jsonify({"name": material.name,
+                "description": material.description,
+                "url": material.url,
+                "uuidCourse": material.uuid_course,
+                "uuid": material.uuid}), 200
+    
+    def delete_material(self, course_id, material_id):
+        try:
+            material = Material.query.filter_by(uuid=material_id, uuid_course=course_id).first()
+            test = material.type == ""
+        except:
+            raise Exception("Material not found")
+
+        db.session.delete(material)
+        db.session.commit()
 
 class CustomDB():
     @staticmethod
@@ -245,15 +313,15 @@ class CustomDB():
 
         for material in materials:
             combined.append({
-                "faviconUrl": MaterialDB().faviconUrl(material.url),
-                "type": material.type,
                 "typeof": "material",
+                "type": material.type,
                 "uuid": material.uuid,
                 "name": material.name,
                 "description": material.description,
                 "url": material.url if material.type == "url" else None,
                 "fileUrl": material.fileUrl if material.type != "url" else None,
                 "sizeBytes": material.sizeBytes,
+                "faviconUrl": MaterialDB().faviconUrl(material.url) if material.url else None,
                 "createdAt": material.createdAt
             })
 

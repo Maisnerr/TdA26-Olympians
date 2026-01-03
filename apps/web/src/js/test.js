@@ -73,7 +73,7 @@ let mezi = ""
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: title,
+                name: title,
                 description: description
             })
         })
@@ -224,9 +224,99 @@ let mezi = ""
                 code.innerHTML = "Error";
                 console.log("Error: ", error);
             });
-        }else if(type=="file"){
-            
-        }else{
-            console.error("wtf");
+
+        }else if(type === "file"){
+            const container = button.parentElement;
+            const inputs = container.querySelectorAll("input");
+        
+            const courseId = inputs[0].value;
+            const name = inputs[1].value;
+            const description = inputs[2].value;
+            const fileInput = inputs[3];
+        
+            const formData = new FormData();
+            formData.append("type", "file");
+            formData.append("name", name);
+            formData.append("description", description);
+            formData.append("file", fileInput.files[0]);
+        
+            fetch(serverInput.value + "/api/courses/" + courseId + "/materials", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                code.innerHTML = "" + response.status;
+                checkStatusCode();
+                return response.json();
+            })
+            .then(data => {
+                response.innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                response.innerText = "Error: " + error.message;
+                code.innerHTML = "Error";
+                console.log(error);
+            });
         }
+    }
+
+    function put_materials(type, button){
+        const form = button.closest("div");
+        const endpoint = form.dataset.endpoint;
+    
+        const inputs = form.querySelectorAll("input");
+
+        if(type == "url") {
+            fetch(serverInput.value + "/api/courses/" + inputs[0].value + "/materials/" + inputs[1].value, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: inputs[2].value,
+                    description: inputs[3].value,
+                    url: inputs[4].value
+                })
+            })
+            .then(response => {
+                code.innerHTML = "" + response.status;
+                checkStatusCode();
+                return response.json();
+            })
+            .then(data => {
+                response.innerText = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                response.innerText = "Error: " + error.message;
+                console.log(response.status);
+                code.innerHTML = "Error";
+                console.log("Error: ", error);
+            });
+        }
+    }
+
+    function delete_materials(button){
+        const form = button.closest("div");
+    
+        const inputs = form.querySelectorAll("input");
+
+        fetch(serverInput.value+"/api/courses/"+inputs[0].value+"/materials/"+inputs[1].value, {
+            method: 'DELETE'
+        })
+        .then(responser => {
+            code.innerHTML = responser.status;
+            checkStatusCode();
+        })
+        .then(data => {
+            if(code.innerHTML.toString() === "204"){
+                response.innerText = "Deleted successfully, no content.";
+            }else{
+                response.innerText = JSON.stringify(data, null, 2);
+            }
+        })
+        .catch(error => {
+            response.innerText = "Error: " + error.message;
+            code.innerHTML = "Error";
+            console.error(error);
+        });
     }

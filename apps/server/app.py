@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory, abort
 from flask_cors import CORS
 import json
 import os
@@ -42,6 +42,16 @@ app.register_blueprint(materials_bp)
 @app.route("/api/getstudies/<courses_id>", methods=["GET"])
 def getstudies(courses_id):
     return db_module.CustomDB.get_studies(courses_id)
+@app.route("/api/getfile/<uuid>", methods=["GET"])
+def getfiles(uuid):
+    for filename in os.listdir("uploads"):
+        if filename.startswith("."):
+            continue
+        name, ext = os.path.splitext(filename)
+        if name == uuid:
+            return send_from_directory("uploads", filename)
+    
+    abort(404, description="File not found")
 
 if __name__ == '__main__':
     print("Starting Flask server...")
