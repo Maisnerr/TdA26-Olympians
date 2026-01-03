@@ -261,7 +261,8 @@ class MaterialDB():
         db.session.commit()
         
         return {"type": "file",
-                "uuid": uuid}
+                "uuid": uuid,
+                "name": entry.name}
 
     def put_materials_url(self, course_id, material_id, name, description, url):
         material = Material.query.filter_by(uuid=material_id, uuid_course=course_id).first()
