@@ -84,7 +84,7 @@ def post_materials(course_id):
         mimeType = file.mimetype.split(";")[0]
 
         try:
-            db_module.MaterialDB().complete_post_file(uuid, size_bytes, extension, mimeType)
+            mezi = db_module.MaterialDB().complete_post_file(uuid, size_bytes, extension, mimeType)
         except Exception as e:
             print(str(e))
             db_module.MaterialDB().stop_post_file(uuid)
@@ -94,7 +94,7 @@ def post_materials(course_id):
         path = os.path.join(UPLOADS, f"{uuid}{extension}")
         file.save(path)
 
-        return jsonify({"message": "ok"}), 200
+        return jsonify(mezi), 200
     else:
         return jsonify({"error": "Unsupported Content-Type"}), 415
     

@@ -226,7 +226,8 @@ class MaterialDB():
                 "description": new_material.description,
                 "url": new_material.url,
                 "uuidCourse": new_material.uuid_course,
-                "uuid": new_material.uuid}
+                "uuid": new_material.uuid,
+                "type": "url"}
     
     def post_materials_file(self, course_id, name, description):
         course_check = Course.query.filter_by(uuid = course_id).first()
@@ -258,6 +259,9 @@ class MaterialDB():
         entry.mimeType = mimeType
         
         db.session.commit()
+        
+        return {"type": "file",
+                "uuid": uuid}
 
     def put_materials_url(self, course_id, material_id, name, description, url):
         material = Material.query.filter_by(uuid=material_id, uuid_course=course_id).first()
